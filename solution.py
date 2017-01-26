@@ -55,41 +55,6 @@ def assign_value(values, box, value):
     if len(value) == 1:
         assignments.append(values.copy())
     return values
-#Good to got
-def naked_twins(values):
-    """Eliminate values using the naked twins strategy.
-    Args:
-        values(dict): a dictionary of the form {'box_name': '123456789', ...}
-
-    Returns:
-        the values dictionary with the naked twins eliminated from peers.
-    """
-
-    # Find all instances of naked twins
-    # Eliminate the naked twins as possibilities for their peers
-
-    for index, value in values.items():
-        if len(value) == 2:
-            # We study only with the case of string len of 2
-            # Even though, it can apply to cluster of range more than 2
-            for unit_input in units[index]:
-                for box in unit_input:
-                    # check for every column, row and box unit
-                    if (value == values[box])and (not (box == index)):
-                        # naked twin found
-                        # start elimited string in whether row, column or box
-                        for other in unit_input:
-                            # eliminate other character according to naked twin definition
-                            if (not(index == other))and (not(box == other)):
-                                for str_index in range(len(values[index])):
-                                    values[other] = values[other].replace(values[index][str_index],"")
-
-    return values
-
-
-
-
-
 
 def grid_values(grid):
     """
@@ -154,6 +119,79 @@ def only_choice(values):
             if len(dplaces) == 1:
                 values[dplaces[0]] = digit
     return values
+    #Good to got
+def naked_twins(values):
+    """Eliminate values using the naked twins strategy.
+    Args:
+        values(dict): a dictionary of the form {'box_name': '123456789', ...}
+
+    Returns:
+        the values dictionary with the naked twins eliminated from peers.
+    """
+
+    # Find all instances of naked twins
+    # Eliminate the naked twins as possibilities for their peers
+
+    for index, value in values.items():
+        if len(value) == 2:
+            # We study only with the case of string len of 2
+            # Even though, it can apply to cluster of range more than 2
+            for unit_input in units[index]:
+                for box in unit_input:
+                    # check for every column, row and box unit
+                    if (value == values[box])and (not (box == index)):
+                        # naked twin found
+                        # start elimited string in whether row, column or box
+                        for other in unit_input:
+                            # eliminate other character according to naked twin definition
+                            if (not(index == other))and (not(box == other)):
+                                for str_index in range(len(values[index])):
+                                    values[other] = values[other].replace(values[index][str_index],"")
+
+    return values
+
+
+def diagonal_sudoku_solver(values):
+    """
+    Input: Sudoku puzzle in the form of dictionary
+    Output: Sudoku reduce puzzle form along diagonal
+    """
+    # Elimination along diagonal
+    for diag_input in diag_box:
+        if len(values[diag_input]) == 1:
+            for peer_ind in diag_peer[diag_input]:
+                #value = values[peer_ind].replace(sudo_value,"")
+                #assign_value(values,peer_ind,value)
+                values[peer_ind] = values[peer_ind].replace(values[diag_input],"")
+    #only choice along diagonal
+    for diag_input in diag_box: # for each units
+        for other_test in diag_peer[diag_input]: # for each unit in a units
+            str_proc = values[other_test]
+            for diag_compare in diag_peer[diag_input]: # for compare to above unit
+                if diag_compare is not other_test:
+                    for ind in range(len(values[diag_compare])): # elimite the same charater
+                        str_proc = str_proc.replace(values[diag_compare][ind],"")
+                if str_proc == "":
+                    break
+            if len(str_proc) > 0:
+                values[other_test] = str_proc
+    #naked twin along diagonal
+    for diag_input in diag_box:
+        if len(values[diag_input]) == 2:
+            # We study only with the case of string len of 2
+            # Even though, it can apply to cluster of range more than 2
+            for other_test in diag_peer[diag_input]:
+                # check for its peer in diagonal unit
+                if (values[diag_input] == values[diag_compare]):
+                    # naked twin found
+                    # start elimited string in other digonal unit
+                    for other in unit_input:
+                        # eliminate other character according to naked twin definition
+                        if (not(diag_input == other))and (not(diag_compare == other)):
+                            for str_index in range(len(values[index])):
+                                values[other] = values[other].replace(values[index][str_index],"")
+    return values                
+
 
 def reduce_puzzle(values):
     solved_values = [box for box in values.keys() if len(values[box]) == 1]
@@ -169,7 +207,10 @@ def reduce_puzzle(values):
         values = only_choice(values)
 
         # Use naked twin choice strategy here
+        values = naked_twins(values)
 
+        # reduce the diagonal constrian solution
+        values = diagonal_sudoku_solver(values)
         # Check how many boxes have a determined value, to compare
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         # If no new values were added, stop the loop.
@@ -178,13 +219,9 @@ def reduce_puzzle(values):
         if len([box for box in values.keys() if len(values[box]) == 0]):
             return False
     return values
-
+"""
 def reduce_puzzle_diagonal(values):
-    """
-    Reduce a Sudoku in an diagonal of square
-    Input: A sudoku in dictionary form.
-    Output: A sudoku solution for diagonal constrian if exist 
-    """
+    
     solved_values = [box for box in values.keys() if len(values[box]) == 1]
     stalled = False
     while not stalled:
@@ -204,7 +241,7 @@ def reduce_puzzle_diagonal(values):
         # Sanity check, return False if there is a box with zero available values:
         if len([box for box in values.keys() if len(values[box]) == 0]):
             return False
-    return values
+    return values """
  
 
 
@@ -249,10 +286,11 @@ def solve(grid):
     # conver grid value into values storage in the form of dictionary
     values = grid_values(grid)
     # Using the the diagonal peer in the list above to work with diagonal sudoku
-    for diag_peer in diag_peers:
-
-
-
+    values = search(values)
+    if values:
+        return values
+    else:
+        return False
 
 if __name__ == '__main__':
     diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
