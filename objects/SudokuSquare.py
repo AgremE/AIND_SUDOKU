@@ -3,16 +3,6 @@ import pygame
 from pygame import *
 
 def AAfilledRoundedRect(surface,rect,color,radius=0.4):
-
-    """
-    AAfilledRoundedRect(surface,rect,color,radius=0.4)
-
-    surface : destination
-    rect    : rectangle
-    color   : rgb or rgba
-    radius  : 0 <= radius <= 1
-    """
-
     rect         = Rect(rect)
     color        = Color(*color)
     alpha        = color.a
