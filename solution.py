@@ -17,6 +17,32 @@ units = dict((s, [u for u in unitlist if s in u]) for s in boxes) # using with o
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes) # using with elimination
 
 """
+Assisting parameter for the diagonal Sudoku
+"""
+diag_unit = [['A1','B2','C3','D4','E5','F6','G7','H8','I9'],['I1','H2','G3','F4','E5','D6','C7','B8','A9']]
+diag_box = ['A1','B2','C3','D4','E5','F6','G7','H8','I9','I1','H2','G3','F4','D6','C7','B8','A9']
+
+diag_unitlist = {} # store all its peer including itself
+diag_peer= {} # store all its peer in the diagonal constrain only
+tmp_value = [] # just to help initialize diag_unitlist
+for s in diag_box:
+    tmp_value = []
+    for diag in diag_unit:
+        input_diag = diag.copy()
+        #print (diag)
+        #print ("\n")
+        if s in diag:
+            if tmp_value:
+                tmp_value = tmp_value+input_diag
+            else:
+                tmp_value = input_diag
+    diag_unitlist[s] = tmp_value
+
+for s in diag_box:
+    tmp_value = set(diag_unitlist[s])-set([s])
+    diag_peer[s] = tmp_value
+
+"""
 ***Starting of Solution***
 """
 
@@ -153,6 +179,35 @@ def reduce_puzzle(values):
             return False
     return values
 
+def reduce_puzzle_diagonal(values):
+    """
+    Reduce a Sudoku in an diagonal of square
+    Input: A sudoku in dictionary form.
+    Output: A sudoku solution for diagonal constrian if exist 
+    """
+    solved_values = [box for box in values.keys() if len(values[box]) == 1]
+    stalled = False
+    while not stalled:
+        # Check how many boxes have a determined value
+        solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
+
+        # Use the Eliminate Strategy for diagonal sudoku
+        
+        # Use the Only Choice Strategy for diagonal sudoku
+
+        # Use naked twin choice strategy here for diagoal sudoku
+
+        # Check how many boxes have a determined value, to compare
+        solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
+        # If no new values were added, stop the loop.
+        stalled = solved_values_before == solved_values_after
+        # Sanity check, return False if there is a box with zero available values:
+        if len([box for box in values.keys() if len(values[box]) == 0]):
+            return False
+    return values
+ 
+
+
 def search(values):
     "Using depth-first search and propagation, create a search tree and solve the sudoku."
     # First, reduce the puzzle using the previous function
@@ -193,6 +248,9 @@ def solve(grid):
     """
     # conver grid value into values storage in the form of dictionary
     values = grid_values(grid)
+    # Using the the diagonal peer in the list above to work with diagonal sudoku
+    for diag_peer in diag_peers:
+
 
 
 

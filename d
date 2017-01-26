@@ -1,0 +1,357 @@
+[33mcommit 87f92033e6c37014c0d6cbb3025e89be16556050[m
+Author: MakaraPhav <agreme@localhost.localdomain>
+Date:   Thu Jan 26 15:44:27 2017 +0900
+
+    Naked Twin Finish. Start working with diagonal sudoku
+
+[33mcommit d330014ab34f8a7b49a7e224c3e19766515c8f47[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Wed Jan 25 18:23:21 2017 -0800
+
+    fix typo
+
+[33mcommit 61689893e1654b24592ae85dbc0b4fe8ceec1e78[m
+Merge: a4719bb eaf9fd8
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Wed Jan 25 17:29:14 2017 -0800
+
+    Merge pull request #5 from clapollo/suggested_changes
+    
+    Improved unit tests
+
+[33mcommit eaf9fd800a6885563e77247def53c100e55625ee[m
+Author: Chris LaPollo <chris.lapollo@gmail.com>
+Date:   Wed Jan 25 20:20:25 2017 -0500
+
+    refactor: Improve unit tests organization
+    
+    Move code into classes and do some formatting to improve
+    readability.
+
+[33mcommit 5b6caafbe871a95e8e15239ecfdcaa444d78b881[m
+Merge: 410b312 98d319c
+Author: Chris LaPollo <chris.lapollo@gmail.com>
+Date:   Wed Jan 25 19:44:31 2017 -0500
+
+    Fix typo in unit test error message
+
+[33mcommit 410b312f3ba9520936c95957ee540a06a94eb360[m
+Author: Chris LaPollo <chris.lapollo@gmail.com>
+Date:   Wed Jan 25 18:18:33 2017 -0500
+
+    test: Add additional unit tests for naked twins
+    
+    Test for naked_twins implementations that continue looping
+    to find naked twins until there are none left, versus doing
+    a single pass and ignoring new pairs created during that pass.
+    
+    Also, some students were passing the original test case by
+    falsely assuming naked twins can only be be in the same column.
+    Add an additional test case that requires finding naked twins
+    in other locations.
+
+[33mcommit 98d319cb69e6b0a15647b2037b5fe7cc70fcb98f[m
+Author: Chris LaPollo <chris.lapollo@gmail.com>
+Date:   Wed Jan 25 18:18:33 2017 -0500
+
+    test: Add additional unit tests for naked twins
+    
+    Test for naked_twins implementations that continue looping
+    to find naked twins until there are none left, versus doing
+    a single pass and ignoring new pairs created during that pass.
+    
+    Also, some students were passing the original test case by
+    falsely assuming naked twins can only be be in the same column.
+    Add an additional test case that requires finding naked twins
+    in other locations.
+
+[33mcommit a4719bbe3b7628101731d4e7ccf44566f7f7fcc7[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Wed Jan 25 12:13:52 2017 -0800
+
+    update docstring
+
+[33mcommit 8fe47fc27457194349049cfc06d7dc94cf0b64d3[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Wed Jan 25 10:12:38 2017 -0800
+
+    update docstrings
+
+[33mcommit 95d8d73f2d2a907538df23cde48bc60e135e2160[m
+Merge: 20596d3 d0670c8
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Wed Jan 25 09:10:13 2017 -0800
+
+    Merge pull request #4 from clapollo/suggested_changes
+    
+    fix: Sample code passed wrong values to solve
+
+[33mcommit 20596d3e857374d2df487448198f30093481c378[m
+Merge: 9eb4b1f 70bac93
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Tue Jan 24 18:50:54 2017 -0800
+
+    Merge pull request #2 from kkweon/readme_fix
+    
+    docs: line break in Q&A README.md
+
+[33mcommit d0670c8892bd09e250754287717489b7a52cca84[m
+Author: Chris LaPollo <chris.lapollo@gmail.com>
+Date:   Tue Jan 24 21:27:24 2017 -0500
+
+    fix: Sample code passed wrong values to solve
+    
+    The arguments passed to display in solution.py should match the
+    ones passed in solution_test.py. Specifically, fix to
+    pass the string representation to solve instead of the
+    dictionary. (Should have been fixed in an earlier commit,
+    but missed this line.)
+
+[33mcommit 70bac93f5194232d8acab4e444c4735a20480271[m
+Author: KYUNG MO KWEON <kkweon@gmail.com>
+Date:   Tue Jan 24 15:54:57 2017 -0800
+
+    docs: line break in Q&A
+
+[33mcommit 9eb4b1fad4f63c665ac22914c04c48f7b821a469[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Tue Jan 24 15:08:29 2017 -0800
+
+    update docstrings
+
+[33mcommit facd064452b1bc78999de410a278ab9de72b631b[m
+Merge: e1d98c1 959a8f4
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Mon Jan 23 23:32:26 2017 -0800
+
+    Merge pull request #1 from clapollo/suggested_changes
+    
+    Suggested changes
+
+[33mcommit 959a8f409937abee10ca03d99a231e5f882ee77b[m
+Author: Chris LaPollo <chris.lapollo@gmail.com>
+Date:   Tue Jan 24 02:10:05 2017 -0500
+
+    fix: Text case passes wrong value into solve function
+    
+    The solve function should take a string representation of
+    the puzzle and convert it using grid_values internally.
+    However, the test case calls grid_values and passes the
+    results of that into solve. This makes the search
+    method redundant.
+
+[33mcommit 32fba37c7016351c2b7e50722f0eb342d2ff1a20[m
+Author: Chris LaPollo <chris.lapollo@gmail.com>
+Date:   Tue Jan 24 02:00:05 2017 -0500
+
+    docs: Indicate where students should answer questions
+    
+    Add text clarifying where students are meant to provide
+    answers within the README.md
+
+[33mcommit cc1474f732638b2c2bd7cd215c8a5cdb1f36a487[m
+Author: Chris LaPollo <chris.lapollo@gmail.com>
+Date:   Tue Jan 24 01:47:55 2017 -0500
+
+    feat: Add eliminate function stub
+    
+    The other functions from the lectures are included in
+    stub form, but eliminate is missing.
+
+[33mcommit 07cfa62007f0881d2ba81ed83f52ca7b8480c782[m
+Author: Chris LaPollo <chris.lapollo@gmail.com>
+Date:   Mon Jan 23 23:09:03 2017 -0500
+
+    refactor: Move solution.py's test code into main check
+    
+    solution.py includes some code outside of its function definitions,
+    meant to solve and display a test Sudoku. This would be better
+    placed inside a check for main
+
+[33mcommit e1d98c167b738b50032a4deef84ea8a629771bc7[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Sun Jan 22 23:01:09 2017 -0800
+
+    fix final typos
+
+[33mcommit 16b62df9d9b7c871c5f2dd2b98cbf6c8b5e58dc1[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Sun Jan 22 14:55:30 2017 -0800
+
+    remove single_possibility
+
+[33mcommit 507b58fca13328d10e79a581eb95a1fa4a52283b[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Sun Jan 22 14:06:21 2017 -0800
+
+    improve instructions for naked twins
+
+[33mcommit c650e6d39c6d765e233b42a3f12b6a987e21ee6e[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Sun Jan 22 14:01:26 2017 -0800
+
+    clean up readme
+
+[33mcommit 3636511334156778c3ed8bbe25e130013a773a26[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Sun Jan 22 11:36:46 2017 -0800
+
+    remove ipynb file
+
+[33mcommit 2523b86aaf2c1b082b7d822f5c1760575aef2c63[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Thu Jan 19 19:02:22 2017 -0800
+
+    add readme questions
+
+[33mcommit 2ca90cf135c97bae71d237b5d1765fae28412195[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Thu Jan 19 18:35:27 2017 -0800
+
+    make pygame optional in readme
+
+[33mcommit cf65bcd044045e853d8f7729c5926935c6a1ffa1[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Thu Jan 19 18:34:55 2017 -0800
+
+    make pygame optional
+
+[33mcommit 5cda8abe4976b546fe9aeee6b1bb07a404a268a7[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Thu Jan 19 18:29:03 2017 -0800
+
+    update readme
+
+[33mcommit 7407076b86b5de5db1771858d01a72a9151a39ba[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Thu Jan 19 18:26:25 2017 -0800
+
+    update readme
+
+[33mcommit c25ab0b97da79f7115c34628c9912fc2d6424222[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Thu Jan 19 17:33:42 2017 -0800
+
+    fix reference to functions.py
+
+[33mcommit 8fa817140963ed55d9c68d1a53b84a56117f84d2[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Wed Jan 18 15:42:39 2017 -0800
+
+    upgrade to python3
+
+[33mcommit 3a3abb521dcd909662f1fb4ecc7f0157ec3ee2b3[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Wed Jan 18 12:59:37 2017 -0800
+
+    update
+
+[33mcommit 45cd6a3d986872678469b10c2812b0c5d516317d[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Wed Jan 18 12:22:42 2017 -0800
+
+    update readme
+
+[33mcommit f16fab8b3c2691e981670211267166ea94c69297[m
+Author: Dhruv Parthasarathy <dhruv@udacity.com>
+Date:   Wed Jan 18 12:19:57 2017 -0800
+
+    add visualization code
+
+[33mcommit 67037e7f4b1572f9b57c0b2ca54868f271bb22b3[m
+Author: Luis Serrano <luisgui.serrano@gmail.com>
+Date:   Fri Jan 13 12:44:08 2017 -0800
+
+    Adding unit tests
+
+[33mcommit ff12dd4196aa5f2f614b32e71b745a5d1ec331cc[m
+Author: Luis Serrano <luisgui.serrano@gmail.com>
+Date:   Fri Jan 13 11:29:14 2017 -0800
+
+    Fixing functions.
+
+[33mcommit 53672756512bda83f9f9d82a41266fd0d2db6d88[m
+Author: Luis Serrano <luisgui.serrano@gmail.com>
+Date:   Thu Jan 12 12:47:13 2017 -0800
+
+    Adding grid_values, display, and a diagonal sudoku example in solution.py
+
+[33mcommit 39ac4a7b5765f53aca209bc249d6e3fee2a9d28f[m
+Author: Luis Serrano <luisgui.serrano@gmail.com>
+Date:   Wed Jan 11 19:52:41 2017 -0800
+
+    Small fix in solution.py
+
+[33mcommit 4c16dcc194e352c9603bab7f99d3e3def4355dcc[m
+Author: Luis Serrano <luisgui.serrano@gmail.com>
+Date:   Wed Jan 11 19:49:37 2017 -0800
+
+    Added comment in solution.py
+
+[33mcommit f7e3613628d8433a40dd6754c2b33d70a8d94578[m
+Author: Luis Serrano <luisgui.serrano@gmail.com>
+Date:   Wed Jan 11 19:48:05 2017 -0800
+
+    Added solutions
+
+[33mcommit 8064b9fcdcb0f30e6a181f236650683e2d5f4282[m
+Author: Luis Serrano <luisgui.serrano@gmail.com>
+Date:   Wed Jan 11 03:22:59 2017 -0800
+
+    Fixing functions.py
+
+[33mcommit b8e0cad760ef7515d387b2c261f41f5ad9fd6b83[m
+Author: Luis Serrano <luisgui.serrano@gmail.com>
+Date:   Wed Jan 11 02:51:52 2017 -0800
+
+    Fixing functions.py
+
+[33mcommit 872cf88f42e989c987d9ee1a862f1462b17d9305[m
+Author: Luis Serrano <luisgui.serrano@gmail.com>
+Date:   Wed Jan 11 02:50:41 2017 -0800
+
+    Fixing functions.py
+
+[33mcommit 34f4eb578074dc283a759615f8c67c6938f7c06a[m
+Author: Luis Serrano <luisgui.serrano@gmail.com>
+Date:   Wed Jan 11 02:49:12 2017 -0800
+
+    Fixing functions.py
+
+[33mcommit 1efb79061fc7b5bd12e16c185391c3d579565ec2[m
+Author: Luis Serrano <luisgui.serrano@gmail.com>
+Date:   Wed Jan 11 02:45:55 2017 -0800
+
+    Added variables
+
+[33mcommit 819f2295ff40d1fd383d001a7af808e5b851dd19[m
+Author: luisguiserrano <luisgui.serrano@gmail.com>
+Date:   Wed Jan 11 01:48:32 2017 -0800
+
+    Expanded README.md
+
+[33mcommit 6e0308835955753658d339e5db3ff2dc85315902[m
+Author: luisguiserrano <luisgui.serrano@gmail.com>
+Date:   Mon Jan 9 20:32:58 2017 -0800
+
+    Add files via upload
+
+[33mcommit 272a9538336a7614028e0aca35eb6baf72b8b0eb[m
+Author: luisguiserrano <luisgui.serrano@gmail.com>
+Date:   Mon Jan 9 20:29:10 2017 -0800
+
+    Update functions.py
+
+[33mcommit cbf3c4b61952d974d7b07547da1b267d5961f66e[m
+Author: luisguiserrano <luisgui.serrano@gmail.com>
+Date:   Mon Jan 9 20:15:17 2017 -0800
+
+    Create functions.py
+    
+    These are the main functions of the agent.
+
+[33mcommit 29ab9cdc8c20a2ba75e8f4fdf08ba2f59ca786e2[m
+Author: luisguiserrano <luisgui.serrano@gmail.com>
+Date:   Mon Jan 9 20:08:28 2017 -0800
+
+    first commit
