@@ -100,11 +100,11 @@ def eliminate(values):
         - keys: Box labels, e.g. 'A1'
         - values: Value in corresponding box, e.g. '8', or '123456789' if it is empty.
     """
-    for sudo_index, sudo_value in  values.items():
-            if len(sudo_value) == 1:
-                for peer_ind in peers[sudo_index]:
-                    value = values[peer_ind].replace(sudo_value,"")
-                    assign_value(values,peer_ind,value)
+    solved_values = [box for box in values.keys() if len(values[box]) == 1]
+    for box in solved_values:
+        digit = values[box]
+        for peer in peers[box]:
+            assign_value(values,peer,values[peer].replace(digit,''))
     return values
 
 def only_choice(values):
@@ -117,9 +117,9 @@ def only_choice(values):
         for digit in '123456789':
             dplaces = [box for box in unit_input if digit in values[box]]
             if len(dplaces) == 1:
-                values[dplaces[0]] = digit
+                assign_value(values,dplaces[0],digit)
     return values
-    #Good to got
+
 def naked_twins(values):
     """Eliminate values using the naked twins strategy.
     Args:
@@ -145,9 +145,11 @@ def naked_twins(values):
                         for other in unit_input:
                             # eliminate other character according to naked twin definition
                             if (not(index == other))and (not(box == other)):
+                                str_proc = values[other]
                                 for str_index in range(len(values[index])):
-                                    values[other] = values[other].replace(values[index][str_index],"")
-
+                                    str_proc = str_proc.replace(values[index][str_index],"")
+                                if(len(str_proc) > 0):
+                                    assign_value(values,other,str_proc)
     return values
 
 
@@ -160,36 +162,38 @@ def diagonal_sudoku_solver(values):
     for diag_input in diag_box:
         if len(values[diag_input]) == 1:
             for peer_ind in diag_peer[diag_input]:
+                str_proc = values[peer_ind]
                 #value = values[peer_ind].replace(sudo_value,"")
                 #assign_value(values,peer_ind,value)
-                values[peer_ind] = values[peer_ind].replace(values[diag_input],"")
-    #only choice along diagonal
-    for diag_input in diag_box: # for each units
-        for other_test in diag_peer[diag_input]: # for each unit in a units
-            str_proc = values[other_test]
-            for diag_compare in diag_peer[diag_input]: # for compare to above unit
-                if diag_compare is not other_test:
-                    for ind in range(len(values[diag_compare])): # elimite the same charater
-                        str_proc = str_proc.replace(values[diag_compare][ind],"")
-                if str_proc == "":
-                    break
-            if len(str_proc) > 0:
-                values[other_test] = str_proc
+                str_proc = str_proc.replace(values[diag_input],"")
+                if(len(str_proc) > 0):
+                    assign_value(values,peer_ind,str_proc)
+    """
+    #only choice along diagonal            
+    for diag_input in diag_unit:
+        for digit in '123456789':
+            dplaces = [box for box in diag_input if digit in values[box]]
+            if len(dplaces) == 1:
+                assign_value(values,dplaces[0],digit)
+
     #naked twin along diagonal
     for diag_input in diag_box:
         if len(values[diag_input]) == 2:
             # We study only with the case of string len of 2
             # Even though, it can apply to cluster of range more than 2
-            for other_test in diag_peer[diag_input]:
+            for diag_compare in diag_peer[diag_input]:
                 # check for its peer in diagonal unit
-                if (values[diag_input] == values[diag_compare]):
+                if (values[diag_input] == values[diag_compare]) and (not (diag_compare == diag_input)):
                     # naked twin found
                     # start elimited string in other digonal unit
-                    for other in unit_input:
-                        # eliminate other character according to naked twin definition
-                        if (not(diag_input == other))and (not(diag_compare == other)):
-                            for str_index in range(len(values[index])):
-                                values[other] = values[other].replace(values[index][str_index],"")
+                    for the_rest in diag_peer[diag_input]:
+                        if (not (the_rest==diag_input) and not (the_rest==diag_compare)):
+                            str_proc = values[the_rest]
+                            for str_index in range(len(values[diag_input])):
+                                str_proc = str_proc.replace(values[diag_input][str_index],"")
+                            if len(str_proc) > 0:
+                                assign_value(values,the_rest,str_proc)"""
+    
     return values                
 
 
@@ -199,6 +203,8 @@ def reduce_puzzle(values):
     while not stalled:
         # Check how many boxes have a determined value
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
+
+
 
         # Use the Eliminate Strategy
         values = eliminate(values)
@@ -211,68 +217,39 @@ def reduce_puzzle(values):
 
         # reduce the diagonal constrian solution
         values = diagonal_sudoku_solver(values)
+        
         # Check how many boxes have a determined value, to compare
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         # If no new values were added, stop the loop.
         stalled = solved_values_before == solved_values_after
         # Sanity check, return False if there is a box with zero available values:
         if len([box for box in values.keys() if len(values[box]) == 0]):
+            # Change from False to value to check the result of code only_choice
             return False
     return values
-"""
-def reduce_puzzle_diagonal(values):
-    
-    solved_values = [box for box in values.keys() if len(values[box]) == 1]
-    stalled = False
-    while not stalled:
-        # Check how many boxes have a determined value
-        solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
-
-        # Use the Eliminate Strategy for diagonal sudoku
-        
-        # Use the Only Choice Strategy for diagonal sudoku
-
-        # Use naked twin choice strategy here for diagoal sudoku
-
-        # Check how many boxes have a determined value, to compare
-        solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
-        # If no new values were added, stop the loop.
-        stalled = solved_values_before == solved_values_after
-        # Sanity check, return False if there is a box with zero available values:
-        if len([box for box in values.keys() if len(values[box]) == 0]):
-            return False
-    return values """
- 
 
 
 def search(values):
     "Using depth-first search and propagation, create a search tree and solve the sudoku."
     # First, reduce the puzzle using the previous function
     values = reduce_puzzle(values)
-    #problem got halted
-    if not values:
-        return False
-    #founded solution
+    if values is False:
+        return False ## Failed earlier
     if all(len(values[s]) == 1 for s in boxes): 
-        return values 
+        return values ## Solved!
     # Chose one of the unfilled square s with the fewest possibilities
-    index_fewest = fewest_option(values)
-    # Now use recursion to solve each one of the resulting sudokus, and if one returns a value (not False), return that answer!
-    for index in range(len(values[index_fewest])):
-        values_replic = values.copy()
-        values_replic[index_fewest] = values[index_fewest][index]
-        trial_search = search(values_replic)
-        if trial_search:
-           return trial_search
-#find the fewest possible option for box that we can find
-def fewest_option(values):
-    smallest_len = 100 # init to highest value possible
-    smallest_index = '' # need to return the index back not the len of the value
-    for key, value in values.items():
-        if len(value) < smallest_len and len(value) > 1:
-            smallest_len = len(value)
-            smallest_index = key
-    return smallest_index  
+    test = [(len(values[s]), s) for s in boxes if len(values[s]) > 1]
+    if not test:
+        print ("Values Display with List Empty: ")
+        print (display(values))
+    n,s = min((len(values[s]), s) for s in boxes if len(values[s]) > 1)
+    # Now use recurrence to solve each one of the resulting sudokus, and 
+    for value in values[s]:
+        new_sudoku = values.copy()
+        new_sudoku[s] = value
+        attempt = search(new_sudoku)
+        if attempt:
+            return attempt 
 
 def solve(grid):
     """

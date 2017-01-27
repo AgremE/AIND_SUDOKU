@@ -70,12 +70,12 @@ class TestNakedTwins(unittest.TestCase):
     def test_naked_twins(self):
         self.assertTrue(solution.naked_twins(self.before_naked_twins_1) in self.possible_solutions_1,
                         "Your naked_twins function produced an unexpected board.")
+        #print (solution.display(solution.naked_twins(self.before_naked_twins_1)))
+        #print (solution.display(solution.naked_twins(self.possible_solutions_1)))
 
-    def test_naked_twins2(self):
+    def test_naked_twins2(  self):
         self.assertTrue(solution.naked_twins(self.before_naked_twins_2) in self.possible_solutions_2,
                         "Your naked_twins function produced an unexpected board.")
-
-
 
 class TestDiagonalSudoku(unittest.TestCase):
     diagonal_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
@@ -92,6 +92,9 @@ class TestDiagonalSudoku(unittest.TestCase):
                           'D1': '5'}
 
     def test_solve(self):
+        print (solution.display(solution.grid_values(self.diagonal_grid)))
+        print (solution.display(self.solved_diag_sudoku)) 
+        print (solution.display(solution.solve(self.diagonal_grid)))
         self.assertEqual(solution.solve(self.diagonal_grid), self.solved_diag_sudoku)
 
 if __name__ == '__main__':
