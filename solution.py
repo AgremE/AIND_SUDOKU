@@ -168,7 +168,6 @@ def diagonal_sudoku_solver(values):
                 str_proc = str_proc.replace(values[diag_input],"")
                 if(len(str_proc) > 0):
                     assign_value(values,peer_ind,str_proc)
-    """
     #only choice along diagonal            
     for diag_input in diag_unit:
         for digit in '123456789':
@@ -192,7 +191,7 @@ def diagonal_sudoku_solver(values):
                             for str_index in range(len(values[diag_input])):
                                 str_proc = str_proc.replace(values[diag_input][str_index],"")
                             if len(str_proc) > 0:
-                                assign_value(values,the_rest,str_proc)"""
+                                assign_value(values,the_rest,str_proc)
     
     return values                
 
