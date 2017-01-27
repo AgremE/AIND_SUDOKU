@@ -3,11 +3,13 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: Firstly, agent walks through all the value in the grid if the agent ecounter value of lenght 2, it will lookthrough all of its peer in peers dictionary. If it find the value that is the same as the one that it first ecounter, it will report naked-twin value found. Then, agent will eliminate that two digit from all the value in its peers' value. Agent will process to do that until the end of the grid value.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: I created a list of diagonal value storage. I create two new lists and two new dictionary for to solve a diagonal sudoku problem. One of the dictionary act like a peers dictionary in the given assingment. Then, I run throught it like a normal grid but only with the diagonal only with eliminate, only choice and naked-twin solution.
+
+[Noted]: There are two solution to above problem, if you put only elimination into the diagonal solver only, it will generate different result if we move order of digoanl solver around in the reduce puzzle function. In fact, the result is correct.
 
 ### Install
 

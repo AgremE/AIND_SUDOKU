@@ -25,12 +25,15 @@ diag_box = ['A1','B2','C3','D4','E5','F6','G7','H8','I9','I1','H2','G3','F4','D6
 diag_unitlist = {} # store all its peer including itself
 diag_peer= {} # store all its peer in the diagonal constrain only
 tmp_value = [] # just to help initialize diag_unitlist
+
+# assing value to diag_unit
+# this use for two reason:
+# 1- Working with only choice in the diagoal
+# 2- use to create another dictionary that act like a peers dictionary
 for s in diag_box:
     tmp_value = []
     for diag in diag_unit:
         input_diag = diag.copy()
-        #print (diag)
-        #print ("\n")
         if s in diag:
             if tmp_value:
                 tmp_value = tmp_value+input_diag
@@ -38,6 +41,7 @@ for s in diag_box:
                 tmp_value = input_diag
     diag_unitlist[s] = tmp_value
 
+# initilized the diag_peer dictionary. This dictionary likes the peers
 for s in diag_box:
     tmp_value = set(diag_unitlist[s])-set([s])
     diag_peer[s] = tmp_value
@@ -197,13 +201,15 @@ def diagonal_sudoku_solver(values):
 
 
 def reduce_puzzle(values):
+    """
+    Input: Sudoku puzzle in the form of dictionary
+    Output: Sudoku reduce solution in the form of dictionary (This form make it closer to the solution) 
+    """
     solved_values = [box for box in values.keys() if len(values[box]) == 1]
     stalled = False
     while not stalled:
         # Check how many boxes have a determined value
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
-
-
 
         # Use the Eliminate Strategy
         values = eliminate(values)
@@ -223,7 +229,7 @@ def reduce_puzzle(values):
         stalled = solved_values_before == solved_values_after
         # Sanity check, return False if there is a box with zero available values:
         if len([box for box in values.keys() if len(values[box]) == 0]):
-            # Change from False to value to check the result of code only_choice
+            # Change from False to value to check the result of code only
             return False
     return values
 
@@ -236,11 +242,6 @@ def search(values):
         return False ## Failed earlier
     if all(len(values[s]) == 1 for s in boxes): 
         return values ## Solved!
-    # Chose one of the unfilled square s with the fewest possibilities
-    test = [(len(values[s]), s) for s in boxes if len(values[s]) > 1]
-    if not test:
-        print ("Values Display with List Empty: ")
-        print (display(values))
     n,s = min((len(values[s]), s) for s in boxes if len(values[s]) > 1)
     # Now use recurrence to solve each one of the resulting sudokus, and 
     for value in values[s]:
